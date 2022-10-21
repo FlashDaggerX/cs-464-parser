@@ -54,7 +54,7 @@ Output:
 	Line: 5, spelling = [1234], kind = 1
 	Line 6: wrong token !
 
-**After you get an error message for the symbol = remove this symbol and
+**After you get an error message for the symbol `=` remove this symbol and
 run the program. Repeat this until the last wrong token which is: `?`**
 
 You should get the following error messges:

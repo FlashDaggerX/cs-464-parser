@@ -15,7 +15,7 @@ EBNF of Mini Language
 	Loop --> "loop" Expression Stmt.
 	Block --> "block" Statements.
 	Expression --> Identifier | Literal | "("Operation Expression Expression")".
-	Operation --> "+" |"-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and".
+	Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and".
 
 **Treat Identifier and Literal as terminal symbols. Every symbol inside `"` and `"` is
 a terminal symbol. The rest are non terminals.**

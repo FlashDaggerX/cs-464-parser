@@ -2,42 +2,29 @@ package com.github.fdx;
 
 public class Token {
 	public Kind kind;
+	public String lexeme;
 	public int line;
 
-	public Token(Token.Kind kind, int line) {
+	public Token(Token.Kind kind, String lexeme, int line) {
 		this.kind = kind;
+		this.lexeme = lexeme;
 		this.line = line;
 	}
 
 	public enum Kind {
-		IDENTIFIER("<identifier>"),
-		LITERAL("<literal>"),
-		ASSIGN("assign"),
-		CONDITIONAL("conditional"),
-		LOOP("loop"),
-		BLOCK("block"),
-		SKIP("skip"),
-		AND("and"),
-		OR("or"),
+		IDENTIFIER,
+		LITERAL,
+		ASSIGN,
+		CONDITIONAL,
+		LOOP,
+		BLOCK,
+		SKIP,
+		AND,
+		OR,
 		LPAREN,
 		RPAREN,
 		OPERATOR,
 		NOTHING,
 		EOT;
-
-		private String spelling;
-
-		Kind(String spelling) {
-			this.spelling = spelling;
-		}
-
-		Kind() {
-			this("<>");
-		}
-
-		@Override
-		public String toString() {
-			return this.spelling;
-		}
 	}
 }

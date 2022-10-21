@@ -2,28 +2,29 @@ package com.github.fdx;
 
 public class Parser {
 	private Token currentToken;
-	private PScan scanner;
+	private Lexer lexer;
 
-	private void accept(Token.Kind expectedKind) {
+	public void parse() {
+		lexer = new Lexer(SourceFile.openFile());
+		currentToken = lexer.scan();
+		parseProgram();
+		if (currentToken.kind != Token.Kind.EOT)
+			new Error("Syntax error: Redundant characters at the end of program.",
+					currentToken.line);
+	}
+
+	private void accept() {
+		currentToken = lexer.scan();
+	}
+
+	/* Was `acceptIt` */
+	private void expect(Token.Kind expectedKind) {
 		if (currentToken.kind == expectedKind)
-			currentToken = scanner.scan();
+			currentToken = lexer.scan();
 		else
 			new Error("Syntax error: " +
 					currentToken.toString() +
 					" is not expected.",
-					currentToken.line);
-	}
-
-	private void acceptIt() {
-		currentToken = scanner.scan();
-	}
-
-	public void parse() {
-		scanner = new PScan(SourceFile.openFile());
-		currentToken = scanner.scan();
-		parseProgram();
-		if (currentToken.kind != Token.Kind.EOT)
-			new Error("Syntax error: Redundant characters at the end of program.",
 					currentToken.line);
 	}
 

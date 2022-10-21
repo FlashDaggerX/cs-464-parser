@@ -18,6 +18,12 @@ public class SourceFile {
 			System.err.println("The source file " + fileName + " was not found.");
 		} catch (IOException e) {
 			System.err.println(e);
+		} finally {
+			try {
+				stdin.close();
+			} catch (IOException e) {
+				System.err.println("Couldn't close stdin.");
+			}
 		}
 		return inFile;
 	}

@@ -89,7 +89,7 @@ public class Lexer {
 						consume();
 						return Token.Kind.OPERATOR;
 					default:
-						return Token.Kind.EOT;
+						return Token.Kind.NOTHING;
 				}
 			}
 			// I had some help with this part from this resource (great book, by the way!):

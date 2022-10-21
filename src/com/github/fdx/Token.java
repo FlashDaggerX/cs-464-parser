@@ -24,8 +24,8 @@ public class Token {
 		LPAREN,
 		RPAREN,
 		OPERATOR,
-		NOTHING,
 		/** The error token */
+		NOTHING,
 		EOT;
 	}
 }

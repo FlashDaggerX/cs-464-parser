@@ -25,6 +25,7 @@ public class Token {
 		RPAREN,
 		OPERATOR,
 		NOTHING,
+		/** The error token */
 		EOT;
 	}
 }

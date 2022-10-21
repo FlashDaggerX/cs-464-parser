@@ -30,10 +30,15 @@ public class Parser {
 
 	// Program" --> "("Sequence State")".
 	private void parseProgram() {
+		expect(Token.Kind.LPAREN);
+		parseSequence();
+		parseState();
+		expect(Token.Kind.RPAREN);
 	}
 
 	// Sequence --> "("Statements")".
 	private void parseSequence() {
+
 	}
 
 	// Statements --> Stmt*

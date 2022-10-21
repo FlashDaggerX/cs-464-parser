@@ -7,4 +7,3 @@ public class Main {
 		System.out.println("The syntax of the source program is correct.");
 	}
 }
-

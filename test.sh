@@ -2,4 +2,5 @@
 
 javac src/com/github/fdx/*.java
 cd src/
-echo -e "test.txt\r\n" | java com/github/fdx/Main
+
+java com/github/fdx/Main <<< "example.txt"

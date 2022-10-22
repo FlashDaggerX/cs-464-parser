@@ -5,24 +5,24 @@ Reminders:
 
 BNF grammar of Mini Language:
 
-	Program" --> "("Sequence State")".
-	Sequence --> "("Statements")".
+	Program" --> "(" Sequence State ")"
+	Sequence --> "(" Statements ")"
 	Statements --> Statements	Stmt | e
-	Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")".
-	State -->	"("Pairs")".
-	Pairs -->	Pairs Pair | e.
-	Pair --> "("Identifier Literal")".
-	NullStatement --> "skip".
-	Assignment --> "assign" Identifier Expression.
-	Conditional --> "conditional" Expression Stmt Stmt.
-	Loop --> "loop" Expression Stmt.
-	Block --> "block" Statements.
-	Expression --> Identifier | Literal | "("Operation Expression Expression")".
-	Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and".
+	Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
+	State -->	"(" Pairs ")"
+	Pairs -->	Pairs Pair | e
+	Pair --> "(" Identifier Literal ")"
+	NullStatement --> "skip"
+	Assignment --> "assign" Identifier Expression
+	Conditional --> "conditional" Expression Stmt Stmt
+	Loop --> "loop" Expression Stmt
+	Block --> "block" Statements
+	Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
+	Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and"
 
 **Treat Identifier and Literal as terminal symbols. Every symbol inside `"` and `"` is a terminal symbol. The rest are non terminals.**
 
-Input file: `test.txt`
+Input file: `example.txt`
 
 Output:
 

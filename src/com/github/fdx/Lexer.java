@@ -2,11 +2,13 @@ package com.github.fdx;
 
 import java.io.*;
 
+import com.github.fdx.Token.Kind;
+
 public class Lexer {
 	private static final char NULL = '\u0000';
 
 	private char currentChar;
-	private Token.Kind currentKind;
+	private Kind currentKind;
 	private StringBuffer currentSpelling;
 	private BufferedReader inFile;
 	private int line = 1;
@@ -41,8 +43,7 @@ public class Lexer {
 
 	/* Was `scanSeparator` */
 	private void skipWhitespace() {
-		boolean out = false;
-		while (!out) {
+		loop: while (true) {
 			switch (currentChar) {
 				case '\n':
 					line++;
@@ -50,8 +51,9 @@ public class Lexer {
 				case '\r':
 				case '\t':
 					advance();
+					break;
 				default:
-					out = true;
+					break loop;
 			}
 		}
 	}
@@ -63,21 +65,24 @@ public class Lexer {
 		return new Token(currentKind, currentSpelling.toString(), line);
 	}
 
-	private Token.Kind scanToken() {
+	private Kind scanToken() {
 		switch (currentChar) {
+			// End of file
+			case NULL:
+				return Kind.EOT;
 			case '(':
 				consume();
-				return Token.Kind.LPAREN;
+				return Kind.LPAREN;
 			case ')':
 				consume();
-				return Token.Kind.RPAREN;
+				return Kind.RPAREN;
 			case '+':
 			case '-':
 			case '*':
 			case '/':
 			case '=':
 				consume();
-				return Token.Kind.OPERATOR;
+				return Kind.OPERATOR;
 			// All of these characters are followed by an equals,
 			// so check for it on all these cases.
 			case '<':
@@ -87,9 +92,9 @@ public class Lexer {
 				switch (currentChar) {
 					case '=':
 						consume();
-						return Token.Kind.OPERATOR;
+						return Kind.OPERATOR;
 					default:
-						return Token.Kind.NOTHING;
+						return Kind.OPERATOR;
 				}
 			}
 			// I had some help with this part from this resource (great book, by the way!):
@@ -114,34 +119,34 @@ public class Lexer {
 
 				// First see if the lexeme is a number.
 				if (parseNum) {
-					return Token.Kind.LITERAL;
+					return Kind.LITERAL;
 				}
 
 				// And then check to see if any of them match a keyword.
 				if (parseStr) {
 					switch (currentSpelling.toString()) {
 						case "skip":
-							return Token.Kind.SKIP;
+							return Kind.SKIP;
 						case "assign":
-							return Token.Kind.ASSIGN;
+							return Kind.ASSIGN;
 						case "conditional":
-							return Token.Kind.CONDITIONAL;
+							return Kind.CONDITIONAL;
 						case "loop":
-							return Token.Kind.LOOP;
+							return Kind.LOOP;
 						case "block":
-							return Token.Kind.BLOCK;
+							return Kind.BLOCK;
 						case "or":
-							return Token.Kind.OR;
+							return Kind.OR;
 						case "and":
-							return Token.Kind.AND;
+							return Kind.AND;
 						default: {
-							return Token.Kind.IDENTIFIER;
+							return Kind.IDENTIFIER;
 						}
 					}
 				}
 
 				// We got here because of crappy mistakes.
-				return Token.Kind.EOT;
+				return Kind.EOT;
 			}
 		}
 	}

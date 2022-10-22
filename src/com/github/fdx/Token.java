@@ -11,6 +11,16 @@ public class Token {
 		this.line = line;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("kind: (%2d) %s\tlexeme: %-8s\tline: %d",
+				kind.ordinal(), kind.toString(), lexeme, line);
+	}
+
+	public boolean isKind(Kind expected) {
+		return this.kind == expected;
+	}
+
 	public enum Kind {
 		IDENTIFIER,
 		LITERAL,
@@ -27,11 +37,5 @@ public class Token {
 		/** The error token */
 		NOTHING,
 		EOT;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Token { kind: %s (%d), lexeme: \"%s\", line: %d }",
-				kind.toString(), kind.ordinal(), lexeme, line);
 	}
 }

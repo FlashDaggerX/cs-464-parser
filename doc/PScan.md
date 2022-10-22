@@ -20,7 +20,7 @@ BNF grammar of Mini Language:
 	Expression --> Identifier | Literal | "("Operation Expression Expression")".
 	Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and".
 
-**Treat Identifier and Literal as terminal symbols. Every symbol inside " and " is a terminal symbol. The rest are non terminals.**
+**Treat Identifier and Literal as terminal symbols. Every symbol inside `"` and `"` is a terminal symbol. The rest are non terminals.**
 
 Input file: `test.txt`
 

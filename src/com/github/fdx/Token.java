@@ -28,4 +28,10 @@ public class Token {
 		NOTHING,
 		EOT;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Token { kind: %s (%d), lexeme: \"%s\", line: %d }",
+				kind.toString(), kind.ordinal(), lexeme, line);
+	}
 }

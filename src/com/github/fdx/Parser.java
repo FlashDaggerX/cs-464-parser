@@ -1,27 +1,30 @@
 package com.github.fdx;
 
+import com.github.fdx.Token.Kind;
+
 public class Parser {
 	private Token currentToken;
 	private Lexer lexer;
 
 	public void parse() {
 		lexer = new Lexer(SourceFile.openFile());
-		accept();
+		consume();
 		parseProgram();
-		if (currentToken.kind != Token.Kind.EOT)
+		if (currentToken.kind != Kind.EOT)
 			new Error("Syntax error: Redundant characters at the end of program.",
 					currentToken.line);
 	}
 
-	private void accept() {
+	/* Was `accept */
+	private void consume() {
 		currentToken = lexer.scan();
 	}
 
 	/* Was `acceptIt` */
-	private void expect(Token.Kind expectedKind) {
-		if (currentToken.kind == expectedKind) {
-			System.out.println(currentToken.toString());
-			currentToken = lexer.scan();
+	private void expect(Kind expectedKind) {
+		if (currentToken.isKind(expectedKind)) {
+			System.out.println(currentToken);
+			consume();
 		} else {
 			new Error("Syntax error: " +
 					currentToken.toString() +
@@ -30,98 +33,138 @@ public class Parser {
 		}
 	}
 
-	// Program" --> "("Sequence State")".
+	// Program --> "("Sequence State")"
 	private void parseProgram() {
-		expect(Token.Kind.LPAREN);
+		expect(Kind.LPAREN);
 		parseSequence();
 		parseState();
-		expect(Token.Kind.RPAREN);
+		expect(Kind.RPAREN);
 	}
 
-	// Sequence --> "("Statements")".
+	// Sequence --> "(" Statements ")"
 	private void parseSequence() {
+		expect(Kind.LPAREN);
 		parseStatements();
+		expect(Kind.RPAREN);
+
 	}
 
-	// Statements --> Stmt*
+	// Statements --> Statements Stmt | e
 	private void parseStatements() {
 		parseStmt();
+		if (!currentToken.isKind(Kind.RPAREN)) {
+			parseStatements();
+		}
 	}
 
-	// Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block}")".
+	// Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
 	private void parseStmt() {
-		expect(Token.Kind.LPAREN);
-		parseNullStatement();
-		parseAssignment();
-		parseConditional();
-		parseLoop();
-		parseBlock();
-		expect(Token.Kind.RPAREN);
+		expect(Kind.LPAREN);
+		switch (currentToken.kind) {
+			case SKIP:
+				parseNullStatement();
+				break;
+			case ASSIGN:
+				parseAssignment();
+				break;
+			case CONDITIONAL:
+				parseConditional();
+				break;
+			case LOOP:
+				parseLoop();
+				break;
+			case BLOCK:
+				parseBlock();
+				break;
+			default:
+		}
+		expect(Kind.RPAREN);
 	}
 
-	// State --> "("Pairs")".
+	// State --> "(" Pairs ")"
 	private void parseState() {
-		expect(Token.Kind.LPAREN);
+		expect(Kind.LPAREN);
 		parsePairs();
-		expect(Token.Kind.RPAREN);
+		expect(Kind.RPAREN);
 	}
 
-	// Pairs --> Pair*.
+	// Pairs --> Pairs Pair | e
 	private void parsePairs() {
 		parsePair();
-
+		if (!currentToken.isKind(Kind.RPAREN)) {
+			parsePairs();
+		}
 	}
 
-	// Pair --> "("Identifier Literal")".
+	// Pair --> "(" Identifier Literal ")"
 	private void parsePair() {
-		expect(Token.Kind.LPAREN);
-		expect(Token.Kind.IDENTIFIER);
-		expect(Token.Kind.LITERAL);
-		expect(Token.Kind.RPAREN);
+		expect(Kind.LPAREN);
+		expect(Kind.IDENTIFIER);
+		expect(Kind.LITERAL);
+		expect(Kind.RPAREN);
 	}
 
-	// NullStatement --> skip.
+	// NullStatement --> "skip"
 	private void parseNullStatement() {
-		expect(Token.Kind.SKIP);
+		expect(Kind.SKIP);
 	}
 
-	// Assignment --> "assign" Identifier Expression.
+	// Assignment --> "assign" Identifier Expression
 	private void parseAssignment() {
-		expect(Token.Kind.ASSIGN);
-		expect(Token.Kind.IDENTIFIER);
+		expect(Kind.ASSIGN);
+		expect(Kind.IDENTIFIER);
 		parseExpression();
 	}
 
-	// Conditional --> "conditional" Expression Stmt Stmt.
+	// Conditional --> "conditional" Expression Stmt Stmt
 	private void parseConditional() {
-		expect(Token.Kind.CONDITIONAL);
+		expect(Kind.CONDITIONAL);
 		parseExpression();
 		parseStmt();
 		parseStmt();
 	}
 
-	// Loop --> "loop" Expression Stmt.
+	// Loop --> "loop" Expression Stmt
 	private void parseLoop() {
-		expect(Token.Kind.LOOP);
+		expect(Kind.LOOP);
 		parseExpression();
 		parseStmt();
 	}
 
-	// Block --> "block" Statements.
+	// Block --> "block" Statements
 	private void parseBlock() {
-		expect(Token.Kind.BLOCK);
+		expect(Kind.BLOCK);
 		parseStatements();
 	}
 
-	// Expression --> Identifier | Literal | "("Operation Expression Expression")".
+	// Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
 	private void parseExpression() {
-		expect(Token.Kind.IDENTIFIER);
-		expect(Token.Kind.LITERAL);
+		switch (currentToken.kind) {
+			case IDENTIFIER:
+				expect(Kind.IDENTIFIER);
+				break;
+			case LITERAL:
+				expect(Kind.LITERAL);
+				break;
+			default:
+				expect(Kind.LPAREN);
+				parseOperation();
+				parseExpression();
+				parseExpression();
+				expect(Kind.RPAREN);
+		}
 	}
 
-	// Operation --> "+" |"-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" |
-	// "or" | "and".
+	// Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" |
+	// "or" | "and"
 	private void parseOperation() {
-		expect(Token.Kind.OPERATOR);
+		switch (currentToken.kind) {
+			case OR:
+				expect(Kind.OR);
+			case AND:
+				expect(Kind.AND);
+			default:
+				expect(Kind.OPERATOR);
+		}
 	}
 }

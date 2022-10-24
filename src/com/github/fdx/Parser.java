@@ -23,7 +23,7 @@ public class Parser {
 	/* Was `acceptIt` */
 	private void expect(Kind expectedKind) {
 		if (currentToken.isKind(expectedKind)) {
-			System.out.println(currentToken);
+			System.out.println("\t" + currentToken);
 			consume();
 		} else {
 			new Error(String.format("Syntax error: \"%s\" (type %s) was not expected",
@@ -33,7 +33,7 @@ public class Parser {
 
 	// Program --> "("Sequence State")"
 	private void parseProgram() {
-		System.out.println("\t[RULE Program]");
+		System.out.println("[RULE Program]");
 		expect(Kind.LPAREN);
 		parseSequence();
 		parseState();
@@ -42,7 +42,7 @@ public class Parser {
 
 	// Sequence --> "(" Statements ")"
 	private void parseSequence() {
-		System.out.println("\t[RULE Sequence]");
+		System.out.println("[RULE Sequence]");
 		expect(Kind.LPAREN);
 		parseStatements();
 		expect(Kind.RPAREN);
@@ -51,7 +51,7 @@ public class Parser {
 
 	// Statements --> Statements Stmt | e
 	private void parseStatements() {
-		System.out.println("\t[RULE Statements]");
+		System.out.println("[RULE Statements]");
 		if (currentToken.isKind(Kind.LPAREN)) {
 			parseStmt();
 			if (!currentToken.isKind(Kind.RPAREN)) {
@@ -62,7 +62,7 @@ public class Parser {
 
 	// Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
 	private void parseStmt() {
-		System.out.println("\t[RULE Stmt]");
+		System.out.println("[RULE Stmt]");
 		expect(Kind.LPAREN);
 		switch (currentToken.kind) {
 			case SKIP:
@@ -87,7 +87,7 @@ public class Parser {
 
 	// State --> "(" Pairs ")"
 	private void parseState() {
-		System.out.println("\t[RULE State]");
+		System.out.println("[RULE State]");
 		expect(Kind.LPAREN);
 		parsePairs();
 		expect(Kind.RPAREN);
@@ -95,7 +95,7 @@ public class Parser {
 
 	// Pairs --> Pairs Pair | e
 	private void parsePairs() {
-		System.out.println("\t[RULE Pairs]");
+		System.out.println("[RULE Pairs]");
 		if (currentToken.isKind(Kind.LPAREN)) {
 			parsePair();
 			if (!currentToken.isKind(Kind.RPAREN)) {
@@ -106,7 +106,7 @@ public class Parser {
 
 	// Pair --> "(" Identifier Literal ")"
 	private void parsePair() {
-		System.out.println("\t[RULE Pair]");
+		System.out.println("[RULE Pair]");
 		expect(Kind.LPAREN);
 		expect(Kind.IDENTIFIER);
 		expect(Kind.LITERAL);
@@ -115,13 +115,13 @@ public class Parser {
 
 	// NullStatement --> "skip"
 	private void parseNullStatement() {
-		System.out.println("\t[RULE NullStatement]");
+		System.out.println("[RULE NullStatement]");
 		expect(Kind.SKIP);
 	}
 
 	// Assignment --> "assign" Identifier Expression
 	private void parseAssignment() {
-		System.out.println("\t[RULE Assignment]");
+		System.out.println("[RULE Assignment]");
 		expect(Kind.ASSIGN);
 		expect(Kind.IDENTIFIER);
 		parseExpression();
@@ -129,7 +129,7 @@ public class Parser {
 
 	// Conditional --> "conditional" Expression Stmt Stmt
 	private void parseConditional() {
-		System.out.println("\t[RULE Conditional]");
+		System.out.println("[RULE Conditional]");
 		expect(Kind.CONDITIONAL);
 		parseExpression();
 		parseStmt();
@@ -138,7 +138,7 @@ public class Parser {
 
 	// Loop --> "loop" Expression Stmt
 	private void parseLoop() {
-		System.out.println("\t[RULE Loop]");
+		System.out.println("[RULE Loop]");
 		expect(Kind.LOOP);
 		parseExpression();
 		parseStmt();
@@ -146,14 +146,14 @@ public class Parser {
 
 	// Block --> "block" Statements
 	private void parseBlock() {
-		System.out.println("\t[RULE Block]");
+		System.out.println("[RULE Block]");
 		expect(Kind.BLOCK);
 		parseStatements();
 	}
 
 	// Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
 	private void parseExpression() {
-		System.out.println("\t[RULE Expression]");
+		System.out.println("[RULE Expression]");
 		switch (currentToken.kind) {
 			case IDENTIFIER:
 				expect(Kind.IDENTIFIER);
@@ -173,7 +173,7 @@ public class Parser {
 	// Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" |
 	// "or" | "and"
 	private void parseOperation() {
-		System.out.println("\t[RULE Operation]");
+		System.out.println("[RULE Operation]");
 		switch (currentToken.kind) {
 			case OR:
 				expect(Kind.OR);

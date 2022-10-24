@@ -1,0 +1,128 @@
+Source file = michaelFellowsSyntax.txt
+[RULE Program]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 1
+[RULE Sequence]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 2
+[RULE Statements]
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 3
+[RULE Assignment]
+	kind: ( 2) ASSIGN      	lexeme: assign  	line: 3
+	kind: ( 0) IDENTIFIER  	lexeme: x       	line: 3
+[RULE Expression]
+	kind: ( 1) LITERAL     	lexeme: 3       	line: 3
+	kind: (10) RPAREN      	lexeme: )       	line: 3
+[RULE Statements]
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 4
+[RULE Assignment]
+	kind: ( 2) ASSIGN      	lexeme: assign  	line: 4
+	kind: ( 0) IDENTIFIER  	lexeme: y       	line: 4
+[RULE Expression]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 4
+[RULE Operation]
+	kind: (11) OPERATOR    	lexeme: +       	line: 4
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: x       	line: 4
+[RULE Expression]
+	kind: ( 1) LITERAL     	lexeme: 1       	line: 4
+	kind: (10) RPAREN      	lexeme: )       	line: 4
+	kind: (10) RPAREN      	lexeme: )       	line: 4
+[RULE Statements]
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 5
+[RULE Conditional]
+	kind: ( 3) CONDITIONAL 	lexeme: conditional	line: 5
+[RULE Expression]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 5
+[RULE Operation]
+	kind: (11) OPERATOR    	lexeme: <       	line: 5
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: x       	line: 5
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: y       	line: 5
+	kind: (10) RPAREN      	lexeme: )       	line: 5
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 5
+[RULE Assignment]
+	kind: ( 2) ASSIGN      	lexeme: assign  	line: 5
+	kind: ( 0) IDENTIFIER  	lexeme: a       	line: 5
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: x       	line: 5
+	kind: (10) RPAREN      	lexeme: )       	line: 5
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 5
+[RULE Assignment]
+	kind: ( 2) ASSIGN      	lexeme: assign  	line: 5
+	kind: ( 0) IDENTIFIER  	lexeme: a       	line: 5
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: y       	line: 5
+	kind: (10) RPAREN      	lexeme: )       	line: 5
+	kind: (10) RPAREN      	lexeme: )       	line: 5
+[RULE Statements]
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 6
+[RULE Loop]
+	kind: ( 4) LOOP        	lexeme: loop    	line: 6
+[RULE Expression]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 6
+[RULE Operation]
+	kind: (11) OPERATOR    	lexeme: <       	line: 6
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: b       	line: 6
+[RULE Expression]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 6
+[RULE Operation]
+	kind: (11) OPERATOR    	lexeme: -       	line: 6
+[RULE Expression]
+	kind: ( 1) LITERAL     	lexeme: 2       	line: 6
+[RULE Expression]
+	kind: ( 1) LITERAL     	lexeme: 0       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 6
+[RULE Stmt]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 6
+[RULE Assignment]
+	kind: ( 2) ASSIGN      	lexeme: assign  	line: 6
+	kind: ( 0) IDENTIFIER  	lexeme: b       	line: 6
+[RULE Expression]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 6
+[RULE Operation]
+	kind: (11) OPERATOR    	lexeme: +       	line: 6
+[RULE Expression]
+	kind: ( 0) IDENTIFIER  	lexeme: b       	line: 6
+[RULE Expression]
+	kind: ( 1) LITERAL     	lexeme: 1       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 6
+	kind: (10) RPAREN      	lexeme: )       	line: 7
+[RULE State]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 8
+[RULE Pairs]
+[RULE Pair]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 8
+	kind: ( 0) IDENTIFIER  	lexeme: a       	line: 8
+	kind: ( 1) LITERAL     	lexeme: 0       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 8
+[RULE Pairs]
+[RULE Pair]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 8
+	kind: ( 0) IDENTIFIER  	lexeme: b       	line: 8
+	kind: ( 1) LITERAL     	lexeme: 0       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 8
+[RULE Pairs]
+[RULE Pair]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 8
+	kind: ( 0) IDENTIFIER  	lexeme: x       	line: 8
+	kind: ( 1) LITERAL     	lexeme: 0       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 8
+[RULE Pairs]
+[RULE Pair]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 8
+	kind: ( 0) IDENTIFIER  	lexeme: y       	line: 8
+	kind: ( 1) LITERAL     	lexeme: 0       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 8
+	kind: (10) RPAREN      	lexeme: )       	line: 9
+The syntax of the source program is correct.

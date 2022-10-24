@@ -1,0 +1,5 @@
+Source file = example.txt
+[RULE Program]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 1
+[RULE Sequence]
+Line 1: Syntax error: ")" (type RPAREN) was not expected

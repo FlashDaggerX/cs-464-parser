@@ -1,0 +1,12 @@
+Source file = [RULE Program]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 1
+[RULE Sequence]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 1
+[RULE Statements]
+	kind: (10) RPAREN      	lexeme: )       	line: 1
+[RULE State]
+	kind: ( 9) LPAREN      	lexeme: (       	line: 1
+[RULE Pairs]
+	kind: (10) RPAREN      	lexeme: )       	line: 1
+	kind: (10) RPAREN      	lexeme: )       	line: 1
+The syntax of the source program is correct.

@@ -13,7 +13,7 @@ public class Token {
 
 	@Override
 	public String toString() {
-		return String.format("kind: (%2d) %s\tlexeme: %-8s\tline: %d",
+		return String.format("kind: (%2d) %-12s\tlexeme: %-8s\tline: %d",
 				kind.ordinal(), kind.toString(), lexeme, line);
 	}
 

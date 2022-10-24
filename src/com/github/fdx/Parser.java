@@ -52,9 +52,11 @@ public class Parser {
 	// Statements --> Statements Stmt | e
 	private void parseStatements() {
 		System.out.println("\t[RULE Statements]");
-		parseStmt();
-		if (!currentToken.isKind(Kind.RPAREN)) {
-			parseStatements();
+		if (currentToken.isKind(Kind.LPAREN)) {
+			parseStmt();
+			if (!currentToken.isKind(Kind.RPAREN)) {
+				parseStatements();
+			}
 		}
 	}
 
@@ -94,9 +96,11 @@ public class Parser {
 	// Pairs --> Pairs Pair | e
 	private void parsePairs() {
 		System.out.println("\t[RULE Pairs]");
-		parsePair();
-		if (!currentToken.isKind(Kind.RPAREN)) {
-			parsePairs();
+		if (currentToken.isKind(Kind.LPAREN)) {
+			parsePair();
+			if (!currentToken.isKind(Kind.RPAREN)) {
+				parsePairs();
+			}
 		}
 	}
 

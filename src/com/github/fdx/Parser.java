@@ -10,7 +10,7 @@ public class Parser {
 		lexer = new Lexer(SourceFile.openFile());
 		consume();
 		parseProgram();
-		if (currentToken.kind != Kind.EOT)
+		if (!currentToken.isKind(Kind.EOT))
 			new Error("Syntax error: Redundant characters at the end of program.",
 					currentToken.line);
 	}
@@ -26,15 +26,14 @@ public class Parser {
 			System.out.println(currentToken);
 			consume();
 		} else {
-			new Error("Syntax error: " +
-					currentToken.toString() +
-					" is not expected.",
-					currentToken.line);
+			new Error(String.format("Syntax error: \"%s\" (type %s) was not expected",
+					currentToken.lexeme, currentToken.kind), currentToken.line);
 		}
 	}
 
 	// Program --> "("Sequence State")"
 	private void parseProgram() {
+		System.out.println("\t[RULE Program]");
 		expect(Kind.LPAREN);
 		parseSequence();
 		parseState();
@@ -43,6 +42,7 @@ public class Parser {
 
 	// Sequence --> "(" Statements ")"
 	private void parseSequence() {
+		System.out.println("\t[RULE Sequence]");
 		expect(Kind.LPAREN);
 		parseStatements();
 		expect(Kind.RPAREN);
@@ -51,6 +51,7 @@ public class Parser {
 
 	// Statements --> Statements Stmt | e
 	private void parseStatements() {
+		System.out.println("\t[RULE Statements]");
 		parseStmt();
 		if (!currentToken.isKind(Kind.RPAREN)) {
 			parseStatements();
@@ -59,6 +60,7 @@ public class Parser {
 
 	// Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
 	private void parseStmt() {
+		System.out.println("\t[RULE Stmt]");
 		expect(Kind.LPAREN);
 		switch (currentToken.kind) {
 			case SKIP:
@@ -83,6 +85,7 @@ public class Parser {
 
 	// State --> "(" Pairs ")"
 	private void parseState() {
+		System.out.println("\t[RULE State]");
 		expect(Kind.LPAREN);
 		parsePairs();
 		expect(Kind.RPAREN);
@@ -90,6 +93,7 @@ public class Parser {
 
 	// Pairs --> Pairs Pair | e
 	private void parsePairs() {
+		System.out.println("\t[RULE Pairs]");
 		parsePair();
 		if (!currentToken.isKind(Kind.RPAREN)) {
 			parsePairs();
@@ -98,6 +102,7 @@ public class Parser {
 
 	// Pair --> "(" Identifier Literal ")"
 	private void parsePair() {
+		System.out.println("\t[RULE Pair]");
 		expect(Kind.LPAREN);
 		expect(Kind.IDENTIFIER);
 		expect(Kind.LITERAL);
@@ -106,11 +111,13 @@ public class Parser {
 
 	// NullStatement --> "skip"
 	private void parseNullStatement() {
+		System.out.println("\t[RULE NullStatement]");
 		expect(Kind.SKIP);
 	}
 
 	// Assignment --> "assign" Identifier Expression
 	private void parseAssignment() {
+		System.out.println("\t[RULE Assignment]");
 		expect(Kind.ASSIGN);
 		expect(Kind.IDENTIFIER);
 		parseExpression();
@@ -118,6 +125,7 @@ public class Parser {
 
 	// Conditional --> "conditional" Expression Stmt Stmt
 	private void parseConditional() {
+		System.out.println("\t[RULE Conditional]");
 		expect(Kind.CONDITIONAL);
 		parseExpression();
 		parseStmt();
@@ -126,6 +134,7 @@ public class Parser {
 
 	// Loop --> "loop" Expression Stmt
 	private void parseLoop() {
+		System.out.println("\t[RULE Loop]");
 		expect(Kind.LOOP);
 		parseExpression();
 		parseStmt();
@@ -133,12 +142,14 @@ public class Parser {
 
 	// Block --> "block" Statements
 	private void parseBlock() {
+		System.out.println("\t[RULE Block]");
 		expect(Kind.BLOCK);
 		parseStatements();
 	}
 
 	// Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
 	private void parseExpression() {
+		System.out.println("\t[RULE Expression]");
 		switch (currentToken.kind) {
 			case IDENTIFIER:
 				expect(Kind.IDENTIFIER);
@@ -158,11 +169,13 @@ public class Parser {
 	// Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" |
 	// "or" | "and"
 	private void parseOperation() {
+		System.out.println("\t[RULE Operation]");
 		switch (currentToken.kind) {
 			case OR:
 				expect(Kind.OR);
 			case AND:
 				expect(Kind.AND);
+				break;
 			default:
 				expect(Kind.OPERATOR);
 		}

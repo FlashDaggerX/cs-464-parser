@@ -139,9 +139,8 @@ public class Lexer {
 							return Kind.OR;
 						case "and":
 							return Kind.AND;
-						default: {
+						default:
 							return Kind.IDENTIFIER;
-						}
 					}
 				}
 

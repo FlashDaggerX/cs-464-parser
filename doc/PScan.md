@@ -5,12 +5,12 @@ Reminders:
 
 BNF grammar of Mini Language:
 
-	Program" --> "(" Sequence State ")"
+	Program --> "(" Sequence State ")"
 	Sequence --> "(" Statements ")"
-	Statements --> Statements	Stmt | e
+	Statements --> Statements Stmt | e
 	Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
-	State -->	"(" Pairs ")"
-	Pairs -->	Pairs Pair | e
+	State --> "(" Pairs ")"
+	Pairs --> Pairs Pair | e
 	Pair --> "(" Identifier Literal ")"
 	NullStatement --> "skip"
 	Assignment --> "assign" Identifier Expression
@@ -19,6 +19,26 @@ BNF grammar of Mini Language:
 	Block --> "block" Statements
 	Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
 	Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and"
+
+Or with single symbols:
+
+	S --> "(" J T ")"
+	J --> "(" H ")"
+	H --> H M | e
+	M --> "(" {G} ")"
+	G --> N | A | C | L | B
+	T --> "(" I ")"
+	I --> I R | e
+	R --> "(" D E ")"
+	N --> "skip"
+	A --> "assign" D X
+	C --> "conditional" X M M
+	L --> "loop" X M
+	B --> "block" H
+	X --> D | E | "(" O X X ")"
+	O --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" | "or" | "and"
+	D --> <Identifier>
+	E --> <Literal>
 
 **Treat Identifier and Literal as terminal symbols. Every symbol inside `"` and `"` is a terminal symbol. The rest are non terminals.**
 

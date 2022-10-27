@@ -86,8 +86,7 @@ public class Lexer {
 			// All of these characters are followed by an equals,
 			// so check for it on all these cases.
 			case '<':
-			case '>':
-			case '!': {
+			case '>': {
 				consume();
 				switch (currentChar) {
 					case '=':
@@ -95,6 +94,17 @@ public class Lexer {
 						return Kind.OPERATOR;
 					default:
 						return Kind.OPERATOR;
+				}
+			}
+			// '!' is not a valid character by itself. Return EOT if it is (by itself).
+			case '!': {
+				consume();
+				switch (currentChar) {
+					case '=':
+						consume();
+						return Kind.OPERATOR;
+					default:
+						return Kind.EOT;
 				}
 			}
 			// I had some help with this part from this resource (great book, by the way!):

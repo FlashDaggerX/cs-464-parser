@@ -3,4 +3,4 @@
 javac src/com/github/fdx/*.java
 cd src/
 
-java com/github/fdx/Main <<< "example.txt"
+java com/github/fdx/Main <<< "parse.txt"

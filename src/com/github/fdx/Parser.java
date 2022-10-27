@@ -38,6 +38,7 @@ public class Parser {
 		parseSequence();
 		parseState();
 		expect(Kind.RPAREN);
+		System.out.println("[END RULE Program]");
 	}
 
 	// Sequence --> "(" Statements ")"
@@ -46,7 +47,7 @@ public class Parser {
 		expect(Kind.LPAREN);
 		parseStatements();
 		expect(Kind.RPAREN);
-
+		System.out.println("[END RULE Sequence]");
 	}
 
 	// Statements --> Statements Stmt | e
@@ -58,6 +59,7 @@ public class Parser {
 				parseStatements();
 			}
 		}
+		System.out.println("[END RULE Statements]");
 	}
 
 	// Stmt --> "(" {NullStatement | Assignment | Conditional | Loop | Block} ")"
@@ -83,6 +85,8 @@ public class Parser {
 			default:
 		}
 		expect(Kind.RPAREN);
+		System.out.println("[END RULE Stmt]");
+
 	}
 
 	// State --> "(" Pairs ")"
@@ -91,6 +95,7 @@ public class Parser {
 		expect(Kind.LPAREN);
 		parsePairs();
 		expect(Kind.RPAREN);
+		System.out.println("[END RULE State]");
 	}
 
 	// Pairs --> Pairs Pair | e
@@ -102,6 +107,7 @@ public class Parser {
 				parsePairs();
 			}
 		}
+		System.out.println("[END RULE Pairs]");
 	}
 
 	// Pair --> "(" Identifier Literal ")"
@@ -111,12 +117,14 @@ public class Parser {
 		expect(Kind.IDENTIFIER);
 		expect(Kind.LITERAL);
 		expect(Kind.RPAREN);
+		System.out.println("[END RULE Pair]");
 	}
 
 	// NullStatement --> "skip"
 	private void parseNullStatement() {
 		System.out.println("[RULE NullStatement]");
 		expect(Kind.SKIP);
+		System.out.println("[END RULE NullStatement]");
 	}
 
 	// Assignment --> "assign" Identifier Expression
@@ -125,6 +133,7 @@ public class Parser {
 		expect(Kind.ASSIGN);
 		expect(Kind.IDENTIFIER);
 		parseExpression();
+		System.out.println("[END RULE Assignment]");
 	}
 
 	// Conditional --> "conditional" Expression Stmt Stmt
@@ -134,6 +143,7 @@ public class Parser {
 		parseExpression();
 		parseStmt();
 		parseStmt();
+		System.out.println("[END RULE Conditional]");
 	}
 
 	// Loop --> "loop" Expression Stmt
@@ -142,6 +152,7 @@ public class Parser {
 		expect(Kind.LOOP);
 		parseExpression();
 		parseStmt();
+		System.out.println("[END RULE Loop]");
 	}
 
 	// Block --> "block" Statements
@@ -149,6 +160,7 @@ public class Parser {
 		System.out.println("[RULE Block]");
 		expect(Kind.BLOCK);
 		parseStatements();
+		System.out.println("[END RULE Block]");
 	}
 
 	// Expression --> Identifier | Literal | "(" Operation Expression Expression ")"
@@ -168,6 +180,7 @@ public class Parser {
 				parseExpression();
 				expect(Kind.RPAREN);
 		}
+		System.out.println("[END RULE Expression]");
 	}
 
 	// Operation --> "+" | "-" | "*" | "/" | "<" | "<=" | ">" | ">=" | "=" | "!=" |
@@ -183,5 +196,6 @@ public class Parser {
 			default:
 				expect(Kind.OPERATOR);
 		}
+		System.out.println("[END RULE Operation]");
 	}
 }
